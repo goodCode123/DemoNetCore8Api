@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using System.Text.Json.Serialization;
 
 namespace Repository.Model
 {
@@ -6,6 +7,7 @@ namespace Repository.Model
     public class UserMasterEntity
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Account { get; set; }

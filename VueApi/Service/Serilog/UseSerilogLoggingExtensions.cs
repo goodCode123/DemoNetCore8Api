@@ -10,20 +10,17 @@ namespace DemoNetCore8Api.Service.Serilog
             app.Use(async (context, next) =>
             {
                 var startTime = DateTime.UtcNow;
-
-                // 捕获 Request Body
                 string requestBody = string.Empty;
                 if (context.Request.ContentLength > 0)
                 {
-                    context.Request.EnableBuffering(); // 允许重复读取 Body
+                    context.Request.EnableBuffering(); 
                     using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8, leaveOpen: true))
                     {
                         requestBody = await reader.ReadToEndAsync();
-                        context.Request.Body.Position = 0; // 重置 Body 流位置
+                        context.Request.Body.Position = 0; 
                     }
                 }
-
-                // 替换 Response Body 为 MemoryStream
+              
                 var originalResponseBodyStream = context.Response.Body;
                 using var responseBodyStream = new MemoryStream();
                 context.Response.Body = responseBodyStream;

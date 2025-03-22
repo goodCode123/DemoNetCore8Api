@@ -4,7 +4,6 @@ using Repository.InterFace;
 using Repository.Model;
 using Service.Model;
 using Services.InterFace;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services.Service
 {
@@ -37,14 +36,23 @@ namespace Services.Service
             return crudService.Update(data);
         }
 
-        public ApiResponseModel Delete(UserMasterEntity userMasterEntity)
+        public ApiResponseModel Delete(int id)
         {
-            return crudService.Delete(userMasterEntity);
+            UserMasterEntity data = new UserMasterEntity
+            {
+                Id = id
+            };
+            return crudService.Delete(data);
         }
 
         public ApiResponseModel GetUserMasters()
         {
             return  crudService.GetAll(new { Status = 1 });
+        }
+
+        public ApiResponseModel GetUserMastersById(int id)
+        {
+            return crudService.GetAll(new { Status = 1 , Id = id });
         }
 
         public ApiResponseModel DeleteUser(UserMasterEntity userMasterEntity)

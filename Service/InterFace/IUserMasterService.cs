@@ -7,7 +7,11 @@ namespace Services.InterFace
     {
         public ApiResponseModel GetUserMasters();
 
+        public ApiResponseModel GetUserMastersById(int id);
+
         public ApiResponseModel DeleteUser(UserMasterEntity userMasterEntity );
+
+        public ApiResponseModel Delete(int id);
 
         public ApiResponseModel Add(UserMasterEntity data);
 
