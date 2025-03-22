@@ -1,0 +1,187 @@
+-- master.dbo.ApiLogs definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.ApiLogs;
+
+CREATE TABLE master.dbo.ApiLogs (
+	Id int IDENTITY(1,1) NOT NULL,
+	[TimeStamp] datetime NULL,
+	[Level] nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	Message nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	[Exception] nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	RequestPath nvarchar(200) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	RequestBody nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	ResponseBody nvarchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	ProcessingTime float NULL,
+	StatusCode int NULL,
+	CONSTRAINT PK_ApiLogs PRIMARY KEY (Id)
+);
+
+
+-- master.dbo.GroupMaster definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.GroupMaster;
+
+CREATE TABLE master.dbo.GroupMaster (
+	Id int IDENTITY(1,1) NOT NULL,
+	GroupName nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	CreateDate datetime DEFAULT dateadd(hour,(8),getdate()) NOT NULL,
+	Disable bit NULL,
+	CONSTRAINT PK__GroupMas__149AF36A53D9A71E PRIMARY KEY (Id)
+);
+
+INSERT INTO master.dbo.GroupMaster (GroupName,CreateDate,Disable) VALUES
+	 (N'admin','2025-01-06 16:28:00.55',0),
+	 (N'userPm','2025-01-07 17:19:03.937',0);
+
+
+
+INSERT INTO master.dbo.GroupMember (GroupMasterId,UserMasterId,CreateUser,CreateTime) VALUES
+	 (2002,2052,N'system','2025-01-07 10:50:44.17'),
+	 (2002,2053,N'system','2025-01-07 10:50:44.177'),
+	 (2002,3042,N'system','2025-01-07 17:02:34.29'),
+	 (2003,3043,N'system','2025-01-07 17:21:30.527');
+
+
+
+-- master.dbo.GroupMember definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.GroupMember;
+
+CREATE TABLE master.dbo.GroupMember (
+	Id int IDENTITY(1,1) NOT NULL,
+	GroupMasterId int NULL,
+	UserMasterId int NULL,
+	CreateUser nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	CreateTime datetime DEFAULT dateadd(hour,(8),getdate()) NOT NULL,
+	CONSTRAINT PK__GroupMem__3214EC07B8ABCB2F PRIMARY KEY (Id)
+);
+
+
+
+INSERT INTO master.dbo.GroupMenuAuth (GroupMasterId,MenuItemId,CreateDate) VALUES
+	 (2002,3,'2025-01-07 17:14:19.317'),
+	 (2002,5,'2025-01-07 17:14:19.343'),
+	 (2002,11,'2025-01-07 17:14:19.393'),
+	 (2002,12,'2025-01-07 17:14:19.403'),
+	 (2002,1003,'2025-01-07 17:14:19.423'),
+	 (2002,4,'2025-01-07 17:16:42.157'),
+	 (2002,9,'2025-01-07 17:16:42.19'),
+	 (2002,10,'2025-01-07 17:16:42.193'),
+	 (2002,1,'2025-01-07 17:18:52.15'),
+	 (2002,6,'2025-01-07 17:18:52.193');
+INSERT INTO master.dbo.GroupMenuAuth (GroupMasterId,MenuItemId,CreateDate) VALUES
+	 (2002,7,'2025-01-07 17:18:52.207'),
+	 (2002,8,'2025-01-07 17:18:52.217'),
+	 (2002,1002,'2025-01-07 17:18:52.24'),
+	 (2003,1,'2025-01-07 17:21:30.433'),
+	 (2003,6,'2025-01-07 17:21:30.447'),
+	 (2003,7,'2025-01-07 17:21:30.46'),
+	 (2003,8,'2025-01-07 17:21:30.47'),
+	 (2003,1002,'2025-01-07 17:21:30.48');
+
+-- master.dbo.GroupMenuAuth definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.GroupMenuAuth;
+
+CREATE TABLE master.dbo.GroupMenuAuth (
+	Id int IDENTITY(1,1) NOT NULL,
+	GroupMasterId int NOT NULL,
+	MenuItemId int NOT NULL,
+	CreateDate datetime DEFAULT dateadd(hour,(8),getdate()) NOT NULL,
+	CONSTRAINT PK__GroupMen__3214EC07EC08EEDF PRIMARY KEY (Id)
+);
+
+
+
+INSERT INTO master.dbo.MenuItem (Title,Url,Icon,ParentId,Disable) VALUES
+	 (N'範例程式',N'1',N'Setting',NULL,0),
+	 (N'課程管理',N'2',N'Setting',NULL,1),
+	 (N'用戶管理',N'3',N'Setting',NULL,0),
+	 (N'廣告管理',N'4',N'Setting',NULL,0),
+	 (N'權限管理',N'5',N'Setting',NULL,0),
+	 (N'批次更新資料範例',N'/BatchUploadExample',N'Setting',1,0),
+	 (N'新增刪除修改範例',N'/CrudExample',N'Setting',1,0),
+	 (N'分頁範例',N'/PaginationExample',N'Setting',1,0),
+	 (N'廣告列表',N'/',N'Setting',4,0),
+	 (N'廣告位列表',N'/',N'Setting',4,0);
+INSERT INTO master.dbo.MenuItem (Title,Url,Icon,ParentId,Disable) VALUES
+	 (N'選單列表',N'/MeauList',N'Setting',5,0),
+	 (N'群組列表',N'/GroupMaster',N'Setting',5,0),
+	 (N'角色列表',N'',N'Setting',5,1),
+	 (N'測試123',N'/',N'Setting',1,0),
+	 (N'使用者管理',N'/UserMaster',N'Setting',3,0),
+	 (N'esdfds',N'/feewfe',N'Setting',1,1),
+	 (N'gggg',N'/ggggg',N'ggggg',1,0),
+	 (N'測試新增',N'6',N'Setting',NULL,0);
+-- master.dbo.MenuItem definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.MenuItem;
+
+CREATE TABLE master.dbo.MenuItem (
+	Id int IDENTITY(1,1) NOT NULL,
+	Title nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Url nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	Icon nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+	ParentId int NULL,
+	Disable bit DEFAULT 0 NULL,
+	CONSTRAINT PK__menu_ite__3213E83F0F79122B PRIMARY KEY (Id),
+	CONSTRAINT FK__menu_item__paren__2882FE7D FOREIGN KEY (ParentId) REFERENCES master.dbo.MenuItem(Id)
+);
+
+
+
+INSERT INTO master.dbo.RefreshToken (UserMasterId,RefreshToken,Token,ExpiryDate,IsRevoked,CreateDate,ModifyDate) VALUES
+	 (3042,N'ea6206cd-182f-4200-917b-8bf5e261a17c',N'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsIklkIjoiMzA0MiIsImp0aSI6IjY4NWVhYzc3LTg5ZGEtNDA4NS1iZWFjLWQ1M2RlNTQ3ZjkxMSIsImV4cCI6MTczNzY5OTkwNiwiaXNzIjoiMTIzNDU2IiwiYXVkIjoiNDU2Nzg5In0.JQuYU5oXNV8RZRfskFdaEWitAx635p0VH9jPHFlV9bE','2025-01-25 14:25:06.947',0,'2025-01-21 09:41:01.59','2025-01-25 14:25:06.947');
+
+
+
+-- master.dbo.RefreshToken definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.RefreshToken;
+
+CREATE TABLE master.dbo.RefreshToken (
+	Id int IDENTITY(1,1) NOT NULL,
+	UserMasterId int NOT NULL,
+	RefreshToken nvarchar(255) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Token nvarchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	ExpiryDate datetime NOT NULL,
+	IsRevoked bit DEFAULT 0 NULL,
+	CreateDate datetime DEFAULT getdate() NULL,
+	ModifyDate datetime DEFAULT getdate() NULL,
+	CONSTRAINT PK__RefreshT__3214EC079991CF1F PRIMARY KEY (Id)
+);
+
+
+INSERT INTO master.dbo.UserMaster (Name,Account,Pwd,CreateDate,Status) VALUES
+	 (N'admin',N'admin',N'AQAAAAIAAYagAAAAEDhTaIg7zpv1Mztxx1xUuZZPcd5fUPPEVnW1S2la7LDh3O4JpUikjlSdSaMjLCj07A==','2025-01-07 11:04:08.79',1),
+	 (N'userpm',N'userpm',N'userpm','2025-01-07 17:20:29.67',1),
+	 (N'123',N'123',N'123','2025-01-16 10:12:04.917',99),
+	 (N'test',N'test',N'AQAAAAIAAYagAAAAEBxKlWGfARDhG4sIKNlyiN1IsrB5s3BPtQdG0m7SaVto5mdCYpnAPIgw5nySlN9eng==','2025-01-16 11:37:58.233',1);
+
+-- master.dbo.UserMaster definition
+
+-- Drop table
+
+-- DROP TABLE master.dbo.UserMaster;
+
+CREATE TABLE master.dbo.UserMaster (
+	Id int IDENTITY(1,1) NOT NULL,
+	Name nvarchar(30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Account nvarchar(30) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	Pwd varchar(512) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	CreateDate datetime DEFAULT dateadd(hour,(8),getdate()) NOT NULL,
+	Status int DEFAULT 1 NULL,
+	CONSTRAINT PK__UserMast__3214EC0770AEE37A PRIMARY KEY (Id)
+);
