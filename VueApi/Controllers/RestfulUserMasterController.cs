@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Repository.Model;
 using Services.InterFace;
 
 namespace DemoNetCore8Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RestfulUserMasterController : ControllerBase
     {
@@ -13,7 +15,6 @@ namespace DemoNetCore8Api.Controllers
         public RestfulUserMasterController(IUserMasterService userMasterService)
         {
             _userMasterService = userMasterService;
-
         }
 
         [HttpGet]
