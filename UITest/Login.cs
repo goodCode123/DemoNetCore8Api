@@ -8,6 +8,7 @@ namespace UITest
     [Url("/login")] 
     public class LoginPage : Page<LoginPage>
     {
+        //rest
         [FindByXPath("/html/body/div[1]/div/div/form/div[1]/div/div[1]/div/input")]
         public TextInput<LoginPage> UserName { get; private set; }
 
